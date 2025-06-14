@@ -35,13 +35,11 @@ endif()
 set(GLAD_SRC src/glad.c)
 set(GLAD_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/include)
 
-set(RESOURCES_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/resources)
+# set(RESOURCES_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/assets)
 
 
 # Listar meus executaveis do src
 set(EXERCISES
-    helloTriangle
-    helloRectangle
     main
 )
 
@@ -66,16 +64,13 @@ endforeach()
 # Copiar shaders para o diretório de build
 file(COPY ${CMAKE_SOURCE_DIR}/shaders/ DESTINATION ${CMAKE_BINARY_DIR}/shaders/)
 
-# Copiar resources para o diretório de build
-file(COPY ${CMAKE_SOURCE_DIR}/resources/ DESTINATION ${CMAKE_BINARY_DIR}/resources/)
+## Copiar resources para o diretório de build
+# file(COPY ${CMAKE_SOURCE_DIR}/assets/ DESTINATION ${CMAKE_BINARY_DIR}/assets/)
 
-add_custom_target(copy_shader
+add_custom_target(copy_shaders
     COMMAND ${CMAKE_COMMAND} -E copy_directory
     ${CMAKE_SOURCE_DIR}/shaders ${CMAKE_BINARY_DIR}/shaders
     COMMENT "copy shaders to build diractory"
 )
 
-# Make your main target depend on the copy_shaders target
-add_dependencies(helloTriangle copy_shaders)
-add_dependencies(helloRectangle copy_shaders)
 add_dependencies(main copy_shaders)
